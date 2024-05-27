@@ -7,15 +7,19 @@ use App\Http\Requests\UpdateTransactionRequest;
 use App\Http\Resources\Member\MemberResource;
 use App\Http\Resources\Transaction\TransactionResource;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Transaction::all();
+        $perPage = $request->query("perPage", 10);
+        $page = $request->query("page", 1);
+
+        $data = Transaction::paginate($perPage, $page);
         $data = TransactionResource::collection($data);
 
         return $this->successResponse($data);
