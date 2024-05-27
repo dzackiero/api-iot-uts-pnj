@@ -6,17 +6,22 @@ use App\Http\Requests\StoreTrashRequest;
 use App\Http\Requests\UpdateTrashRequest;
 use App\Http\Resources\Trash\TrashResource;
 use App\Models\Trash;
+use Illuminate\Http\Request;
 
 class TrashController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index(Request $request): \Illuminate\Http\JsonResponse
     {
-        $data = Trash::all();
+        $perPage = $request->query("perPage", 10);
+        $page = $request->query("page", 1);
+
+        $data = Trash::paginate(perPage: $perPage, page: $page)->withQueryString();
         $data = TrashResource::collection($data);
-        return $this->successResponse($data);
+
+        return $this->successResponse($data->resource);
 
     }
 

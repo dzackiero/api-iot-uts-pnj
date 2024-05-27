@@ -6,17 +6,22 @@ use App\Http\Requests\StoreMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
 use App\Http\Resources\Member\MemberResource;
 use App\Models\Member;
+use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index(Request $request): \Illuminate\Http\JsonResponse
     {
-        $data = Member::all();
+        $perPage = $request->query("perPage", 10);
+        $page = $request->query("page", 1);
+
+        $data = Member::paginate(perPage: $perPage, page: $page)->withQueryString();
         $data = MemberResource::collection($data);
-        return $this->successResponse($data);
+
+        return $this->successResponse($data->resource);
     }
 
     /**
