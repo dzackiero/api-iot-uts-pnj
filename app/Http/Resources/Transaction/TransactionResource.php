@@ -16,8 +16,12 @@ class TransactionResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "trash_id" => $this->trash_id,
-            "member_id" => $this->member_id,
+            "trash" => $this->whenLoaded("trash", function () {
+                return $this->trash;
+            }),
+            "member" => $this->whenLoaded("member", function () {
+                return $this->member;
+            }),
             "weight" => $this->weight,
             "price_per_unit" => $this->price_per_unit,
             "total_price" => $this->total_price,
