@@ -18,11 +18,11 @@ class TransactionController extends Controller
     {
         $perPage = $request->query("perPage", 10);
         $page = $request->query("page", 1);
-
-        $data = Transaction::with(["trash", "member"])->paginate($perPage, $page);
+        $data = Transaction::with(["trash", "member"]);
+        $data = $data->paginate(perPage: $perPage, page: $page)->withQueryString();
         $data = TransactionResource::collection($data);
-        $data = Transaction::all();
-        return $this->successResponse($data);
+
+        return $this->successResponse($data->resource);
     }
 
     /**
