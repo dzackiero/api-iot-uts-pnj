@@ -22,8 +22,8 @@ class StoreTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "member_id" => ["required", "exists:members"],
-            "trash_id" => ["required", "exists:trashes"],
+            "member_id" => ["required", "exists:members,id"],
+            "trash_id" => ["required", "exists:trashes,id"],
             "weight" => ["required", "numeric", "min:0"],
         ];
     }
