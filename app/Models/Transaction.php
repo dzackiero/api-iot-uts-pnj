@@ -9,6 +9,8 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public static function createTransaction($data): Transaction
     {
         $trash = Trash::find($data["trash_id"]);
