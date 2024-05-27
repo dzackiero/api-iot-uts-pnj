@@ -29,7 +29,7 @@ class TransactionController extends Controller
         $data = $request->validated();
 
         $transaction = Transaction::createTransaction($data);
-        $data = new MemberResource($transaction);
+        $data = new TransactionResource($transaction);
 
         return $this->successResponse($data);
     }
