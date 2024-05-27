@@ -21,7 +21,7 @@ class TransactionController extends Controller
 
         $data = Transaction::with(["trash", "member"])->paginate($perPage, $page);
         $data = TransactionResource::collection($data);
-
+        $data = Transaction::all();
         return $this->successResponse($data);
     }
 
