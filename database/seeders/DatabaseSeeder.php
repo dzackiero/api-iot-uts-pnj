@@ -13,6 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        \App\Models\User::create([
+            "name" => "Superadmin",
+            "email" => "admin@admin.com",
+            "password" => \Hash::make("password"),
+        ]);
+
         $this->call(MemberSeeder::class);
         $this->call(TrashSeeder::class);
         $this->call(TransactionSeeder::class);

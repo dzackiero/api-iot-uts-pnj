@@ -12,4 +12,13 @@ abstract class Controller
             "data" => $data
         ]);
     }
+
+    public function errorResponse($data = null, $statusCode = 500, $message = "Error"): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            "success" => false,
+            "message" => $message,
+            "data" => $data
+        ], $statusCode);
+    }
 }
