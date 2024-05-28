@@ -22,6 +22,13 @@ class AuthController extends Controller
         ]);
     }
 
+    public function me()
+    {
+        $user = auth()->user();
+
+        return $this->successResponse($user);
+    }
+
     public function logout(): \Illuminate\Http\JsonResponse
     {
         auth()->user()->tokens()->delete();
