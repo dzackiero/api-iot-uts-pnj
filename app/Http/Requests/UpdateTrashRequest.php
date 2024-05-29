@@ -22,7 +22,10 @@ class UpdateTrashRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => ["required", "string"],
+            "code" => ["required", "string"],
+            "price" => ["required", "numeric"],
+            "unit" => ["required", "string"]
         ];
     }
 }
